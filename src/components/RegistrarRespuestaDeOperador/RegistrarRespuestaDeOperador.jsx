@@ -9,7 +9,8 @@ const RegistrarRespuestaDeOperador = () => {
         <p>Nombre del Cliente: José López</p>
         <p>Categoría previamente seleccionada: Operador</p>
         <p>Opción seleccionada: 1</p>
-        <p>Subopción seleccionada: 3</p>
+        <p>Subopción seleccionada: Subopcion Me quiero morir</p>
+        <p>Numero de orden de Subopción seleccionada: 3</p>
         <button type="button">Validar</button>
 
         <form>
