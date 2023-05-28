@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import {useState, useEffect} from "react";
 import axios from "axios";
 
 const useLlamadas = () => {
@@ -12,8 +12,6 @@ const useLlamadas = () => {
     const [confirmarHabilitado, setConfirmarHabilitado] = useState(false);
     const [opcionSeleccionada, setOpcionSeleccionada] = useState("");
     
-    
-
     useEffect(() => {
         const fetchData = async () => {
             try {

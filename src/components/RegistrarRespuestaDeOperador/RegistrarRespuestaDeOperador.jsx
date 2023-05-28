@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./RegistrarRespuestaDeOperador.css";
 import { Validacion } from "../Validacion/Validacion.jsx";
 import { useLlamadas } from "../../hooks/shared/useLlamadas.js";
