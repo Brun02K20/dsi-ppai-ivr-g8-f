@@ -1,37 +1,51 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import "./Validacion.css";
 
-const Validacion = () => {
-    return (
-      <>
-        <h3>VALIDACIÓN</h3>
-        <p>Nombre Validación: validacionTuVieja</p>
-        <p>Número de orden de Validación: 10</p>
-        <form>
-          <div>
-            <label>
-              <input type="radio" value="opcion1" name="opcionesValidacion" />
-              Opción 1
-            </label>
-          </div>
-          <div>
-            <label>
-              <input type="radio" value="opcion2" name="opcionesValidacion" />
-              Opción 2
-            </label>
-          </div>
-          <div>
-            <label>
-              <input type="radio" value="opcion3" name="opcionesValidacion" />
-              Opción 3
-            </label>
-          </div>
+const Validacion = ({
+  nombreValidacion,
+  nombreSubopcion,
+  opcionesValidacion,
+  handleCancelar,
+  handleValidar,
+}) => {
+  const [opcionSeleccionada, setOpcionSeleccionada] = useState("");
+  const handleOpcionChange = (e) => {
+    setOpcionSeleccionada(e.target.value);
+  };
+  useEffect(() => {
+    setOpcionSeleccionada("");
+  }, [nombreValidacion]);
 
-          <button type="submit">Validar</button>
-          <button type="button">Cancelar</button>
-        </form>
-      </>
-    );
+  return (
+    <>
+      <h3>VALIDACIÓN</h3>
+      <p>Nombre Validación: {nombreValidacion}</p>
+      <p>Nombre Subopcion: {nombreSubopcion}</p>
+      <form>
+        {opcionesValidacion.map((opcion, index) => (
+          <div key={index}>
+            <label>
+              <input
+                type="radio"
+                value={opcion.descripcion}
+                name="opcionesValidacion"
+                checked={opcion.descripcion === opcionSeleccionada}
+                onChange={handleOpcionChange}
+              />
+              {opcion.descripcion}
+            </label>
+          </div>
+        ))}
+
+        <button type="button" onClick={handleValidar}>
+          Validar
+        </button>
+        <button type="button" onClick={handleCancelar}>
+          Cancelar
+        </button>
+      </form>
+    </>
+  );
 };
 
-export {Validacion}
+export { Validacion };
