@@ -7,15 +7,12 @@ const Validacion = ({
   opcionesValidacion,
   handleCancelar,
   handleValidar,
+  opcionSeleccionada,
+  handleOpcionChange,
 }) => {
-  const [opcionSeleccionada, setOpcionSeleccionada] = useState("");
-  const handleOpcionChange = (e) => {
-    setOpcionSeleccionada(e.target.value);
-  };
   useEffect(() => {
-    setOpcionSeleccionada("");
+    handleOpcionChange({ target: { value: "" } }); // Reiniciar la opción seleccionada en cada renderizado
   }, [nombreValidacion]);
-
   return (
     <>
       <h3>VALIDACIÓN</h3>

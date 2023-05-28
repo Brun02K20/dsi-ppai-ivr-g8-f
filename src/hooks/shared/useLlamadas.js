@@ -10,6 +10,9 @@ const useLlamadas = () => {
     const [descripcion, setDescripcion] = useState("");
     const [accionSeleccionada, setAccionSeleccionada] = useState("");
     const [confirmarHabilitado, setConfirmarHabilitado] = useState(false);
+    const [opcionSeleccionada, setOpcionSeleccionada] = useState("");
+    
+    
 
     useEffect(() => {
         const fetchData = async () => {
@@ -65,6 +68,10 @@ const useLlamadas = () => {
         };
     };
 
+    const handleOpcionChange = (e) => {
+        setOpcionSeleccionada(e.target.value);
+    };
+
     return {
         datosLlamada,
         mostrarValidacion,
@@ -74,11 +81,13 @@ const useLlamadas = () => {
         descripcion,
         accionSeleccionada,
         confirmarHabilitado,
+        opcionSeleccionada,
         handleValidarClick,
         handleCancelarClick,
         handleConfirmarClick,
         setDescripcion,
         setAccionSeleccionada,
+        handleOpcionChange,
     };
 };
 

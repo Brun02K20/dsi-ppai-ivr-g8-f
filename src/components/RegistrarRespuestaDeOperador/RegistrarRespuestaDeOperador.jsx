@@ -13,11 +13,13 @@ const RegistrarRespuestaDeOperador = () => {
     descripcion,
     accionSeleccionada,
     confirmarHabilitado,
+    opcionSeleccionada,
     handleValidarClick,
     handleCancelarClick,
     handleConfirmarClick,
     setDescripcion,
     setAccionSeleccionada,
+    handleOpcionChange,
   } = useLlamadas();
 
   if (mostrarValidacion) {
@@ -31,6 +33,8 @@ const RegistrarRespuestaDeOperador = () => {
         nombreValidacion={validacionActual.nombre}
         nombreSubopcion={subopcionActual.nombre}
         opcionesValidacion={validacionActual.opcionesValidacion}
+        opcionSeleccionada={opcionSeleccionada}
+        handleOpcionChange={handleOpcionChange}
       />
     );
   }
