@@ -12,7 +12,7 @@ const useLlamadas = () => {
     const [accionSeleccionada, setAccionSeleccionada] = useState(""); // accion que escoge el operador
     const [confirmarHabilitado, setConfirmarHabilitado] = useState(false); // booleano que indica si se debe habilitar el boton de confirmacion o no
     const [opcionSeleccionada, setOpcionSeleccionada] = useState(""); // la opcion que elige el usuario en cada validacion de cada subopcion, este estado se reinicia cada vez que se cambia de validacion
-    const [confirmacionExitosa, setConfirmacionExitosa] = useState(null); // estado que se inicializa como nulo pero que al final de la ejecucion se volvera booleano con el fin de renderizado condicional del flujo alternativo: LA CONFIRMACION NO SE EJECUTO CON EXITO, se reinicia este estado cuando el usuario da click en el boton volver atras
+    const [confirmacionExitosa, setConfirmacionExitosa] = useState(null); // estado que se inicializa como nulo pero que al final de la ejecucion se volvera booleano con el fin de renderizado condicional del flujo alternativo: LA CONFIRMACION NO SE EJECUTO CON EXITO
     
 
     // obteniendo los datos de la llamada desde el backend, se trae el nombre completo del cliente, la categoria de la llamada, la opcion escogida por el cliente, el conjunto de subopciones escogidas por el cliente y todas las validaciones correspondientes a cada subopcion elegida
