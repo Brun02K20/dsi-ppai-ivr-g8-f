@@ -2,6 +2,7 @@ import React from "react";
 import "./RegistrarRespuestaDeOperador.css";
 import { Validacion } from "../Validacion/Validacion.jsx";
 import { useLlamadas } from "../../hooks/shared/useLlamadas.js";
+import { useObtenerAccionesARealizar } from "../../hooks/shared/useObtenerAccionesARealizar.js";
 
 const RegistrarRespuestaDeOperador = () => {
   const {
@@ -20,7 +21,10 @@ const RegistrarRespuestaDeOperador = () => {
     setDescripcion,
     setAccionSeleccionada,
     handleOpcionChange,
+    realizarValidacion,
   } = useLlamadas();
+
+  const datosAccionesARealizar = useObtenerAccionesARealizar();
 
   if (mostrarValidacion) {
     const subopcionActual = datosLlamada.subOpciones[subopcionIndex];
@@ -35,6 +39,7 @@ const RegistrarRespuestaDeOperador = () => {
         opcionesValidacion={validacionActual.opcionesValidacion}
         opcionSeleccionada={opcionSeleccionada}
         handleOpcionChange={handleOpcionChange}
+        realizarValidacion={realizarValidacion}
       />
     );
   }
@@ -85,9 +90,12 @@ const RegistrarRespuestaDeOperador = () => {
               <option value="" disabled>
                 Elija opcion
               </option>
-              <option value="value1">Value 1</option>
-              <option value="value2">Value 2</option>
-              <option value="value3">Value 3</option>
+              {datosAccionesARealizar &&
+                datosAccionesARealizar.map((accion, index) => (
+                  <option key={index} value={accion}>
+                    {accion}
+                  </option>
+                ))}
             </select>
           </>
         )}

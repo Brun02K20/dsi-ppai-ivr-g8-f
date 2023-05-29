@@ -9,9 +9,10 @@ const Validacion = ({
   handleValidar,
   opcionSeleccionada,
   handleOpcionChange,
+  realizarValidacion,
 }) => {
   useEffect(() => {
-    handleOpcionChange({ target: { value: "" } }); // Reiniciar la opción seleccionada en cada renderizado
+    handleOpcionChange(""); // Reiniciar la opción seleccionada en cada renderizado
   }, [nombreValidacion]);
   return (
     <>
@@ -27,14 +28,21 @@ const Validacion = ({
                 value={opcion.descripcion}
                 name="opcionesValidacion"
                 checked={opcion.descripcion === opcionSeleccionada}
-                onChange={handleOpcionChange}
+                onChange={() => handleOpcionChange(opcion.descripcion)}
               />
               {opcion.descripcion}
             </label>
           </div>
         ))}
 
-        <button type="button" onClick={handleValidar}>
+        <button
+          type="button"
+          onClick={() => {
+            handleValidar();
+            realizarValidacion(opcionSeleccionada);
+          }}
+          disabled={opcionSeleccionada === ""}
+        >
           Validar
         </button>
         <button type="button" onClick={handleCancelar}>

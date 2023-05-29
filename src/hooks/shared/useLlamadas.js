@@ -16,7 +16,7 @@ const useLlamadas = () => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(
-                    "https://localhost:7110/GestorRegistroDeRespuesta"
+                    "https://localhost:7110/api/datos-llamada"
                 );
                 setDatosLlamada(response.data);
             } catch (error) {
@@ -30,6 +30,13 @@ const useLlamadas = () => {
     const handleValidarClick = () => {
         setMostrarValidacion(true);
     };
+
+    const realizarValidacion = async (opcionSeleccionada) => {
+        const validacion = await axios.post('https://localhost:7110/api/validacion', {"descripcion": opcionSeleccionada.toString()});
+        console.log("validacion: ", validacion.data);
+        return validacion.data
+    };
+        
 
     const handleCancelarClick = () => {
         setMostrarValidacion(false);
@@ -66,8 +73,9 @@ const useLlamadas = () => {
         };
     };
 
-    const handleOpcionChange = (e) => {
-        setOpcionSeleccionada(e.target.value);
+    const handleOpcionChange = (opcion) => {
+        setOpcionSeleccionada(opcion);
+        console.log(opcion)
     };
 
     return {
@@ -86,6 +94,7 @@ const useLlamadas = () => {
         setDescripcion,
         setAccionSeleccionada,
         handleOpcionChange,
+        realizarValidacion
     };
 };
 
