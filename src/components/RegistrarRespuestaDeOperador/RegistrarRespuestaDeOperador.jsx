@@ -174,16 +174,32 @@ const RegistrarRespuestaDeOperador = () => {
           </form>
         )}
         {confirmacionExitosa === true && (
-          <>
-            <p>REGISTRO EXITOSO</p>
-            <button onClick={volverAInicio}>VOLVER A INICIO</button>
-          </>
+          <div className="col s12 center">
+            <h4 id="encabezado-de-confirmacion-exito">
+              REGISTRO DE LLAMADA EXITOSO
+              <i className="material-icons small">mood</i>
+            </h4>
+            <button
+              onClick={volverAInicio}
+              className="btn waves-effect waves-light"
+            >
+              VOLVER A INICIO
+            </button>
+          </div>
         )}
         {confirmacionExitosa === false && (
-          <>
-            <p>REGISTRO ERRONEO</p>
-            <button onClick={volverAtrasEnConfirmacion}>VOLVER ATRAS</button>
-          </>
+          <div className="col s12 center">
+            <h4 id="encabezado-de-confirmacion-fallo">
+              REGISTRO ERRONEO, SE CANCELA EL REGISTRO DE LA LLAMADA{" "}
+              <i className="material-icons small">mood_bad</i>
+            </h4>
+            <button
+              onClick={volverAtrasEnConfirmacion}
+              className="btn waves-effect waves-light"
+            >
+              VOLVER ATRAS
+            </button>
+          </div>
         )}
       </div>
     </>

@@ -14,3 +14,12 @@
 .botones-validacion {
     margin: 8px;
 }
+
+#encabezado-error-validacion {
+    color: red;
+    font-weight: bold;
+}
+
+#boton-error-validacion {
+    margin-top: 20px;
+}

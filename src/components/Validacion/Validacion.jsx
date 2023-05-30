@@ -77,15 +77,18 @@ const Validacion = ({
         </>
       )}
       {validacionExitosa === false && (
-        <>
-          <p>ERROR EN LA VALIDACION</p>
+        <div className="col s12 center">
+          <h4 id="encabezado-error-validacion">
+            ERROR EN LA VALIDACION!!! SE CANCELA EL REGISTRO DE LA LLAMADA!!!
+          </h4>
           <button
             onClick={volverAInicio}
             className="btn waves-effect waves-light"
+            id="boton-error-validacion"
           >
             VOLVER A INICIO
           </button>
-        </>
+        </div>
       )}
     </>
   );

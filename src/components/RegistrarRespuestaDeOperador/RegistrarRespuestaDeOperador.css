@@ -27,3 +27,7 @@
 .botones-finales {
     margin: 16px;
 }
+#encabezado-de-confirmacion-exito, #encabezado-de-confirmacion-fallo{
+    color: red;
+    font-weight: bold;
+}
