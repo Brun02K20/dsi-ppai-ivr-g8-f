@@ -1,0 +1,16 @@
+.dato-validacion {
+    font-size: 20px;
+}
+
+.label-opcion-validacion {
+    font-weight: 600;
+    color: rgb(58, 51, 51);
+}
+
+#botones-validacion-container {
+    margin: 16px;
+}
+
+.botones-validacion {
+    margin: 8px;
+}

@@ -13,7 +13,7 @@ const useLlamadas = () => {
     const [confirmarHabilitado, setConfirmarHabilitado] = useState(false); // booleano que indica si se debe habilitar el boton de confirmacion o no
     const [opcionSeleccionada, setOpcionSeleccionada] = useState(""); // la opcion que elige el usuario en cada validacion de cada subopcion, este estado se reinicia cada vez que se cambia de validacion
     const [confirmacionExitosa, setConfirmacionExitosa] = useState(null); // estado que se inicializa como nulo pero que al final de la ejecucion se volvera booleano con el fin de renderizado condicional del flujo alternativo: LA CONFIRMACION NO SE EJECUTO CON EXITO
-    
+    const [validacionExitosa, setValidacionExitosa] = useState(null); // estado que se inicializa como nulo pero que al final de la validacion de turno asumira un valor booleano, si dicho valor booleano es el de true, pasa a la siguiente validacion normalmente, si es false informa el error de validacion y vuelve al inicio
 
     // obteniendo los datos de la llamada desde el backend, se trae el nombre completo del cliente, la categoria de la llamada, la opcion escogida por el cliente, el conjunto de subopciones escogidas por el cliente y todas las validaciones correspondientes a cada subopcion elegida
     useEffect(() => {
@@ -40,8 +40,13 @@ const useLlamadas = () => {
     // corrobora por cada validacion, si la validacion es correcta o no
     const realizarValidacion = async (opcionSeleccionada) => {
         const validacion = await axios.post('https://localhost:7110/api/validacion', {"descripcion": opcionSeleccionada.toString()});
-        console.log("validacion: ", validacion.data);
-        return validacion.data
+        let validadoConExito = false;
+        if (validacion.data === true) {
+            validadoConExito = validacion.data;
+        };
+        setValidacionExitosa(validadoConExito);
+        console.log("validacion: ", validadoConExito);
+        return validadoConExito
     };
 
 
@@ -121,6 +126,32 @@ const useLlamadas = () => {
         setConfirmacionExitosa(confirmacion);
     };
 
+
+    // reseta el sistema si la validacion no fue exitosa, o bien si el registro fue exitoso (es decir, la confirmacion se realizo con exito)
+    const volverAInicio = () => {
+        setMostrarValidacion(false);
+        setMostrarFormulario(false);
+        setSubopcionIndex(0);
+        setValidacionIndex(0);
+        setDescripcion("");
+        setAccionSeleccionada("");
+        setConfirmarHabilitado(false);
+        setOpcionSeleccionada("");
+        setConfirmacionExitosa(null);
+        setValidacionExitosa(null);
+    };
+
+
+    // volver atras si hubo errror en la confirmacion, es decir si confirmacion exitosa es false
+    const volverAtrasEnConfirmacion = () => {
+        setMostrarValidacion(false);
+        setMostrarFormulario(true);
+        setDescripcion("");
+        setAccionSeleccionada("");
+        setConfirmarHabilitado(false);
+        setConfirmacionExitosa(null);
+    };
+
     
     // devuelvo todos los estados y funciones necesarias 
     return {
@@ -134,6 +165,7 @@ const useLlamadas = () => {
         confirmarHabilitado,
         opcionSeleccionada,
         confirmacionExitosa, 
+        validacionExitosa,
         handleValidarClick,
         handleCancelarClick,
         handleConfirmarClick,
@@ -142,7 +174,10 @@ const useLlamadas = () => {
         handleOpcionChange,
         realizarValidacion,
         realizarConfirmacion,
-        setConfirmacionExitosa
+        setConfirmacionExitosa,
+        volverAInicio,
+        volverAtrasEnConfirmacion,
+        setValidacionExitosa
     };
 };
 

@@ -17,6 +17,7 @@ const RegistrarRespuestaDeOperador = () => {
     confirmarHabilitado,
     opcionSeleccionada,
     confirmacionExitosa,
+    validacionExitosa,
     handleValidarClick,
     handleCancelarClick,
     handleConfirmarClick,
@@ -26,6 +27,9 @@ const RegistrarRespuestaDeOperador = () => {
     realizarValidacion,
     realizarConfirmacion,
     setConfirmacionExitosa,
+    volverAInicio,
+    volverAtrasEnConfirmacion,
+    setValidacionExitosa,
   } = useLlamadas();
 
   const datosAccionesARealizar = useObtenerAccionesARealizar();
@@ -44,90 +48,144 @@ const RegistrarRespuestaDeOperador = () => {
     const validacionActual = subopcionActual.validaciones[validacionIndex];
 
     return (
-      <Validacion
-        handleCancelar={handleCancelarClick}
-        handleValidar={handleConfirmarClick}
-        nombreValidacion={validacionActual.nombre}
-        nombreSubopcion={subopcionActual.nombre}
-        opcionesValidacion={validacionActual.opcionesValidacion}
-        opcionSeleccionada={opcionSeleccionada}
-        handleOpcionChange={handleOpcionChange}
-        realizarValidacion={realizarValidacion}
-      />
+      <div className="container section">
+        <Validacion
+          handleCancelar={handleCancelarClick}
+          handleValidar={handleConfirmarClick}
+          nombreValidacion={validacionActual.nombre}
+          nombreSubopcion={subopcionActual.nombre}
+          opcionesValidacion={validacionActual.opcionesValidacion}
+          opcionSeleccionada={opcionSeleccionada}
+          handleOpcionChange={handleOpcionChange}
+          realizarValidacion={realizarValidacion}
+          validacionExitosa={validacionExitosa}
+          volverAInicio={volverAInicio}
+          setValidacionExitosa={setValidacionExitosa}
+        />
+      </div>
     );
   }
 
   return (
     <>
-      <form>
-        {/* Datos de la llamada traidos del backend */}
-        <h3>DATOS DE LA LLAMADA</h3>
-        <p>Nombre del Cliente: {datosLlamada.nombreCliente}</p>
-        <p>Categoría previamente seleccionada: {datosLlamada.categoria}</p>
-        <p>Opción seleccionada: {datosLlamada.opcion}</p>
-        <table>
-          <thead>
-            <tr>
-              <th>Subopción</th>
-              <th>Nro Orden</th>
-            </tr>
-          </thead>
-          <tbody>
-            {/* recorre el array de las subopciones elegidas por el cliente y genera una fila de tabla por cada subopcion traida del backend, con2 datos, el nombre de la subopcion y el numero de orden de la misma */}
-            {datosLlamada.subOpciones &&
-              datosLlamada.subOpciones.map((subOpcion, index) => (
-                <tr key={index}>
-                  <td>{subOpcion.nombre}</td>
-                  <td>{subOpcion.nroOrden}</td>
+      <div className="container section">
+        {confirmacionExitosa === null && (
+          <form>
+            {/* Datos de la llamada traidos del backend */}
+            <div className=" col s12 center">
+              <h4>DATOS DE LA LLAMADA</h4>
+              <p className="dato-llamada">
+                Nombre del Cliente: {datosLlamada.nombreCliente}
+              </p>
+              <p className="dato-llamada">
+                Categoría previamente seleccionada: {datosLlamada.categoria}
+              </p>
+              <p className="dato-llamada">
+                Opción seleccionada: {datosLlamada.opcion}
+              </p>
+            </div>
+            <table id="tabla-subopciones-elegidas">
+              <thead>
+                <tr>
+                  <th>Subopción</th>
+                  <th>Nro Orden</th>
                 </tr>
-              ))}
-          </tbody>
-        </table>
-        {/* si el estado mostrarFormulario es false que renderice el boton VALIDAR, si es true, que renderice el textarea y el combobox */}
-        {!mostrarFormulario && (
-          <button type="button" onClick={handleValidarClick}>
-            Validar
-          </button>
+              </thead>
+              <tbody>
+                {/* recorre el array de las subopciones elegidas por el cliente y genera una fila de tabla por cada subopcion traida del backend, con2 datos, el nombre de la subopcion y el numero de orden de la misma */}
+                {datosLlamada.subOpciones &&
+                  datosLlamada.subOpciones.map((subOpcion, index) => (
+                    <tr key={index}>
+                      <td>{subOpcion.nombre}</td>
+                      <td>{subOpcion.nroOrden}</td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+            {/* si el estado mostrarFormulario es false que renderice el boton VALIDAR, si es true, que renderice el textarea y el combobox */}
+            {!mostrarFormulario && (
+              <div className="col s12 center">
+                <button
+                  type="button"
+                  onClick={handleValidarClick}
+                  className="btn waves-effect waves-light"
+                >
+                  Validar
+                </button>
+              </div>
+            )}
+
+            {mostrarFormulario && (
+              <>
+                <div className="col s12">
+                  <label className="labels-registro">
+                    Ingresar Descripción
+                  </label>
+                  <textarea
+                    value={descripcion}
+                    onChange={(e) => setDescripcion(e.target.value)}
+                    id="textarea-registro"
+                  />
+                </div>
+
+                <div className="col s12" id="combobox-container">
+                  <label className="labels-registro">
+                    Seleccione acción a realizar:
+                  </label>
+                  <select
+                    className="browser-default"
+                    value={accionSeleccionada}
+                    onChange={(e) => setAccionSeleccionada(e.target.value)}
+                  >
+                    <option value="" disabled>
+                      Elija opcion
+                    </option>
+                    {/* por cada elemento dentro del array datosAccionesARealizar, renderiza una opcion posible que el usuario puede elegir en el combobox */}
+                    {datosAccionesARealizar &&
+                      datosAccionesARealizar.map((accion, index) => (
+                        <option key={index} value={accion}>
+                          {accion}
+                        </option>
+                      ))}
+                  </select>
+                </div>
+              </>
+            )}
+            {/* El boton CONFIRMAR se encontrara deshabilitado hasta que el usuario hayao bien ingresado algo en el textarea, o bien elegido alguna opcion en el combobox */}
+            <div className="col s12 center">
+              <button
+                type="button"
+                disabled={!confirmarHabilitado}
+                onClick={async () => {
+                  await realizarConfirmacion(descripcion, accionSeleccionada);
+                }}
+                className="btn waves-effect waves-light botones-finales"
+              >
+                CONFIRMAR
+              </button>
+              <button
+                type="button"
+                className="btn waves-effect waves-light botones-finales"
+                onClick={volverAInicio}
+              >
+                CANCELAR
+              </button>
+            </div>
+          </form>
         )}
-
-        {mostrarFormulario && (
+        {confirmacionExitosa === true && (
           <>
-            <label>Ingresar Descripción</label>
-            <textarea
-              value={descripcion}
-              onChange={(e) => setDescripcion(e.target.value)}
-            />
-
-            <label>Seleccione acción a realizar:</label>
-            <select
-              value={accionSeleccionada}
-              onChange={(e) => setAccionSeleccionada(e.target.value)}
-            >
-              <option value="" disabled>
-                Elija opcion
-              </option>
-              {/* por cada elemento dentro del array datosAccionesARealizar, renderiza una opcion posible que el usuario puede elegir en el combobox */}
-              {datosAccionesARealizar &&
-                datosAccionesARealizar.map((accion, index) => (
-                  <option key={index} value={accion}>
-                    {accion}
-                  </option>
-                ))}
-            </select>
+            <p>REGISTRO EXITOSO</p>
+            <button onClick={volverAInicio}>VOLVER A INICIO</button>
           </>
         )}
-        {/* El boton CONFIRMAR se encontrara deshabilitado hasta que el usuario hayao bien ingresado algo en el textarea, o bien elegido alguna opcion en el combobox */}
-        <button
-          type="button"
-          disabled={!confirmarHabilitado}
-          onClick={async () => {
-            await realizarConfirmacion(descripcion, accionSeleccionada);
-          }}
-        >
-          CONFIRMAR
-        </button>
-        <button type="button">CANCELAR</button>
-      </form>
+        {confirmacionExitosa === false && (
+          <>
+            <p>REGISTRO ERRONEO</p>
+            <button onClick={volverAtrasEnConfirmacion}>VOLVER ATRAS</button>
+          </>
+        )}
+      </div>
     </>
   );
 };
