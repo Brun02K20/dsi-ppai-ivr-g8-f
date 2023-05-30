@@ -40,7 +40,11 @@
 .botones-finales {
     margin: 16px;
 }
-#encabezado-de-confirmacion-exito, #encabezado-de-confirmacion-fallo{
+#encabezado-de-confirmacion-fallo{
     color: red;
+    font-weight: bold;
+}
+#encabezado-de-confirmacion-exito {
+    color: green;
     font-weight: bold;
 }
