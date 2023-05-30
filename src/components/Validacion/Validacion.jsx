@@ -27,7 +27,9 @@ const Validacion = ({
       {(validacionExitosa === null || validacionExitosa === true) && (
         <>
           <div className="col s12">
-            <h4 className="center">VALIDACIÓN</h4>
+            <h4 className="center" id="encabezado-principal-validacion">
+              VALIDACIÓN
+            </h4>
             <p className="dato-validacion">
               Nombre Validación: {nombreValidacion}
             </p>
@@ -68,7 +70,7 @@ const Validacion = ({
               <button
                 type="button"
                 onClick={handleCancelar}
-                className="btn waves-effect waves-light botones-validacion"
+                className="btn waves-effect waves-light botones-validacion red darken-4"
               >
                 Cancelar
               </button>
@@ -83,7 +85,7 @@ const Validacion = ({
           </h4>
           <button
             onClick={volverAInicio}
-            className="btn waves-effect waves-light"
+            className="btn waves-effect waves-light light-blue darken-4"
             id="boton-error-validacion"
           >
             VOLVER A INICIO

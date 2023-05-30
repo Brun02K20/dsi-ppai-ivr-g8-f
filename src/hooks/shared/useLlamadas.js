@@ -46,14 +46,13 @@ const useLlamadas = () => {
         };
         setValidacionExitosa(validadoConExito);
         console.log("validacion: ", validadoConExito);
-        return validadoConExito
+        return validadoConExito;
     };
 
 
     // si el usuario pulsa cancelar en alguna validacion, vuelve al componente REGISTRAR RESPUESTA DE OPERADOR, sin mostrar el textarea ni el select de la accion a realizar
     const handleCancelarClick = () => {
-        setMostrarValidacion(false);
-        setMostrarFormulario(false);
+        volverAInicio();
     };
 
     
@@ -94,7 +93,6 @@ const useLlamadas = () => {
     // funcion actualizadora de estado de la opcion elegida por el usuario en cada validacion
     const handleOpcionChange = (opcion) => {
         setOpcionSeleccionada(opcion);
-        console.log(opcion)
     };
 
 

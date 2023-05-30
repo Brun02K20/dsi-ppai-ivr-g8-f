@@ -1,3 +1,12 @@
+#encabezado-principal {
+    font-weight: 500;
+    text-decoration: underline;
+    background-color: rgb(54, 170, 170);
+    color: white;
+    display: inline-block;
+    padding: 16px;
+}   
+
 .dato-llamada {
     font-size: 20px;
 }
@@ -6,6 +15,10 @@
     border: 2px solid black;
     margin-top: 28px;
     margin-bottom: 28px;
+}
+
+.encabezado-tabla {
+    font-size: 16px;
 }
 
 .labels-registro {

@@ -73,7 +73,7 @@ const RegistrarRespuestaDeOperador = () => {
           <form>
             {/* Datos de la llamada traidos del backend */}
             <div className=" col s12 center">
-              <h4>DATOS DE LA LLAMADA</h4>
+              <h4 id="encabezado-principal">DATOS DE LA LLAMADA</h4>
               <p className="dato-llamada">
                 Nombre del Cliente: {datosLlamada.nombreCliente}
               </p>
@@ -84,11 +84,11 @@ const RegistrarRespuestaDeOperador = () => {
                 Opción seleccionada: {datosLlamada.opcion}
               </p>
             </div>
-            <table id="tabla-subopciones-elegidas">
+            <table id="tabla-subopciones-elegidas" className="z-depth-4">
               <thead>
                 <tr>
-                  <th>Subopción</th>
-                  <th>Nro Orden</th>
+                  <th className="encabezado-tabla">Subopción</th>
+                  <th className="encabezado-tabla">Número de Orden</th>
                 </tr>
               </thead>
               <tbody>
@@ -125,6 +125,7 @@ const RegistrarRespuestaDeOperador = () => {
                     value={descripcion}
                     onChange={(e) => setDescripcion(e.target.value)}
                     id="textarea-registro"
+                    className="z-depth-4"
                   />
                 </div>
 
@@ -133,7 +134,7 @@ const RegistrarRespuestaDeOperador = () => {
                     Seleccione acción a realizar:
                   </label>
                   <select
-                    className="browser-default"
+                    className="browser-default z-depth-4"
                     value={accionSeleccionada}
                     onChange={(e) => setAccionSeleccionada(e.target.value)}
                   >
@@ -159,13 +160,13 @@ const RegistrarRespuestaDeOperador = () => {
                 onClick={async () => {
                   await realizarConfirmacion(descripcion, accionSeleccionada);
                 }}
-                className="btn waves-effect waves-light botones-finales"
+                className="btn waves-effect waves-light botones-finales green darken-2"
               >
                 CONFIRMAR
               </button>
               <button
                 type="button"
-                className="btn waves-effect waves-light botones-finales"
+                className="btn waves-effect waves-light botones-finales red darken-4"
                 onClick={volverAInicio}
               >
                 CANCELAR
@@ -181,7 +182,7 @@ const RegistrarRespuestaDeOperador = () => {
             </h4>
             <button
               onClick={volverAInicio}
-              className="btn waves-effect waves-light"
+              className="btn waves-effect waves-light light-blue darken-4"
             >
               VOLVER A INICIO
             </button>
@@ -195,7 +196,7 @@ const RegistrarRespuestaDeOperador = () => {
             </h4>
             <button
               onClick={volverAtrasEnConfirmacion}
-              className="btn waves-effect waves-light"
+              className="btn waves-effect waves-light light-blue darken-4"
             >
               VOLVER ATRAS
             </button>
