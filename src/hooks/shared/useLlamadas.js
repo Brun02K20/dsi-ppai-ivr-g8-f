@@ -45,7 +45,6 @@ const useLlamadas = () => {
             validadoConExito = validacion.data;
         };
         setValidacionExitosa(validadoConExito);
-        console.log("validacion: ", validadoConExito);
         return validadoConExito;
     };
 
@@ -99,17 +98,17 @@ const useLlamadas = () => {
     // funcion que lleva a cabo la confirmacion del registro, en cuanto el usuario pulse el boton CONFIRMAR en el componente REGISTRAR RESPUESTA DE OPERADOR. lo que hace es inicialmente obtener el resultado del post de la descripcion y de la accion elegida, los cuales son booleans, en donde, si el usuario no ingreso nada es false, y si ingreso algo es true. Si ambos booleans son true, es decir, si el usuario ingreso algo en ambos elementos, entonces la confirmacion se lleva a cabo con exito, en caso contrario, surge un error y la confirmacion no se lleva a cabo.
     const realizarConfirmacion = async (descripcionPuesta, accionElegida) => {
         let confirmacion = false;
-        const respuestaAPI1 = await axios.post(
+        const publicarDescripcion = await axios.post(
         "https://localhost:7110/api/descripcion-operador",
             {'descripcion': descripcionPuesta.toString() }
         );
 
-        const respuestaAPI2 = await axios.post(
+        const publicarAccionElegida = await axios.post(
         "https://localhost:7110/api/accion-requerida",
             {'descripcion': accionElegida.toString() }
         );
 
-        if (respuestaAPI1.data && respuestaAPI2.data) {
+        if (publicarDescripcion.data && publicarAccionElegida.data) {
             const respuestaAPI3 = await axios.post(
                 "https://localhost:7110/api/confirmacion",
                     {'confirmacion': true }

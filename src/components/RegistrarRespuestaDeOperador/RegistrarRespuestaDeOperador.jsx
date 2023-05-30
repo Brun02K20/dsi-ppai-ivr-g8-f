@@ -38,7 +38,6 @@ const RegistrarRespuestaDeOperador = () => {
   useEffect(() => {
     if (confirmacionExitosa !== null) {
       setConfirmacionExitosa(confirmacionExitosa);
-      console.log("confirmacion exitosa:", confirmacionExitosa);
     }
   }, [confirmacionExitosa]);
 

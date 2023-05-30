@@ -27,9 +27,11 @@ const Validacion = ({
       {(validacionExitosa === null || validacionExitosa === true) && (
         <>
           <div className="col s12">
-            <h4 className="center" id="encabezado-principal-validacion">
-              VALIDACIÓN
-            </h4>
+            <div className="col s12 center">
+              <h4 className="center" id="encabezado-principal-validacion">
+                VALIDACIÓN
+              </h4>
+            </div>
             <p className="dato-validacion">
               Nombre Validación: {nombreValidacion}
             </p>
