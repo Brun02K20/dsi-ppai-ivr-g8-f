@@ -18,14 +18,14 @@ const RegistrarRespuestaDeOperador = () => {
     opcionSeleccionada,
     confirmacionExitosa,
     validacionExitosa,
-    handleValidarClick,
+    pedirRespuestaValidacion,
     handleCancelarClick,
     handleConfirmarClick,
     setDescripcion,
     setAccionSeleccionada,
     handleOpcionChange,
-    realizarValidacion,
-    realizarConfirmacion,
+    tomarRespuestaValidacion,
+    pedirConfirmacionOperacion,
     setConfirmacionExitosa,
     volverAInicio,
     volverAtrasEnConfirmacion,
@@ -56,7 +56,7 @@ const RegistrarRespuestaDeOperador = () => {
           opcionesValidacion={validacionActual.opcionesValidacion}
           opcionSeleccionada={opcionSeleccionada}
           handleOpcionChange={handleOpcionChange}
-          realizarValidacion={realizarValidacion}
+          tomarRespuestaValidacion={tomarRespuestaValidacion}
           validacionExitosa={validacionExitosa}
           volverAInicio={volverAInicio}
           setValidacionExitosa={setValidacionExitosa}
@@ -106,7 +106,7 @@ const RegistrarRespuestaDeOperador = () => {
               <div className="col s12 center">
                 <button
                   type="button"
-                  onClick={handleValidarClick}
+                  onClick={pedirRespuestaValidacion}
                   className="btn waves-effect waves-light"
                 >
                   Validar
@@ -157,7 +157,10 @@ const RegistrarRespuestaDeOperador = () => {
                 type="button"
                 disabled={!confirmarHabilitado}
                 onClick={async () => {
-                  await realizarConfirmacion(descripcion, accionSeleccionada);
+                  await pedirConfirmacionOperacion(
+                    descripcion,
+                    accionSeleccionada
+                  );
                 }}
                 className="btn waves-effect waves-light botones-finales green darken-2"
               >

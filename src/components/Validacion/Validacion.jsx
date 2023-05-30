@@ -9,7 +9,7 @@ const Validacion = ({
   handleValidar,
   opcionSeleccionada,
   handleOpcionChange,
-  realizarValidacion,
+  tomarRespuestaValidacion,
   validacionExitosa,
   volverAInicio,
   setValidacionExitosa,
@@ -62,7 +62,7 @@ const Validacion = ({
                 type="button"
                 onClick={() => {
                   handleValidar();
-                  realizarValidacion(opcionSeleccionada);
+                  tomarRespuestaValidacion(opcionSeleccionada);
                 }}
                 disabled={opcionSeleccionada === ""}
                 className="btn waves-effect waves-light botones-validacion"

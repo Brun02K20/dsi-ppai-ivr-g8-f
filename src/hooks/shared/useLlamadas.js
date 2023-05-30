@@ -17,7 +17,7 @@ const useLlamadas = () => {
 
     // obteniendo los datos de la llamada desde el backend, se trae el nombre completo del cliente, la categoria de la llamada, la opcion escogida por el cliente, el conjunto de subopciones escogidas por el cliente y todas las validaciones correspondientes a cada subopcion elegida
     useEffect(() => {
-        const fetchData = async () => {
+        const mostrarDatosLlamada = async () => {
             try {
                 const response = await axios.get(
                     "https://localhost:7110/api/datos-llamada"
@@ -28,17 +28,17 @@ const useLlamadas = () => {
             };
         };
 
-        fetchData();
+        mostrarDatosLlamada();
     }, []);
 
     // activa la renderizacion de los componentes de Validacion
-    const handleValidarClick = () => {
+    const pedirRespuestaValidacion = () => {
         setMostrarValidacion(true);
     };
 
 
     // corrobora por cada validacion, si la validacion es correcta o no
-    const realizarValidacion = async (opcionSeleccionada) => {
+    const tomarRespuestaValidacion = async (opcionSeleccionada) => {
         const validacion = await axios.post('https://localhost:7110/api/validacion', {"descripcion": opcionSeleccionada.toString()});
         let validadoConExito = false;
         if (validacion.data === true) {
@@ -96,19 +96,19 @@ const useLlamadas = () => {
 
 
     // funcion que lleva a cabo la confirmacion del registro, en cuanto el usuario pulse el boton CONFIRMAR en el componente REGISTRAR RESPUESTA DE OPERADOR. lo que hace es inicialmente obtener el resultado del post de la descripcion y de la accion elegida, los cuales son booleans, en donde, si el usuario no ingreso nada es false, y si ingreso algo es true. Si ambos booleans son true, es decir, si el usuario ingreso algo en ambos elementos, entonces la confirmacion se lleva a cabo con exito, en caso contrario, surge un error y la confirmacion no se lleva a cabo.
-    const realizarConfirmacion = async (descripcionPuesta, accionElegida) => {
+    const pedirConfirmacionOperacion = async (descripcionPuesta, accionElegida) => {
         let confirmacion = false;
-        const publicarDescripcion = await axios.post(
+        const tomarDescripcionOperador = await axios.post(
         "https://localhost:7110/api/descripcion-operador",
             {'descripcion': descripcionPuesta.toString() }
         );
 
-        const publicarAccionElegida = await axios.post(
+        const tomarAccionRequerida = await axios.post(
         "https://localhost:7110/api/accion-requerida",
             {'descripcion': accionElegida.toString() }
         );
 
-        if (publicarDescripcion.data && publicarAccionElegida.data) {
+        if (tomarDescripcionOperador.data && tomarAccionRequerida.data) {
             const respuestaAPI3 = await axios.post(
                 "https://localhost:7110/api/confirmacion",
                     {'confirmacion': true }
@@ -163,14 +163,14 @@ const useLlamadas = () => {
         opcionSeleccionada,
         confirmacionExitosa, 
         validacionExitosa,
-        handleValidarClick,
+        pedirRespuestaValidacion,
         handleCancelarClick,
         handleConfirmarClick,
         setDescripcion,
         setAccionSeleccionada,
         handleOpcionChange,
-        realizarValidacion,
-        realizarConfirmacion,
+        tomarRespuestaValidacion,
+        pedirConfirmacionOperacion,
         setConfirmacionExitosa,
         volverAInicio,
         volverAtrasEnConfirmacion,
